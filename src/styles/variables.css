@@ -1,0 +1,89 @@
+/* ============================================
+   RunWith Design Tokens — variables.css
+   브랜드 CSS 변수 시스템 v4.1
+   ============================================ */
+
+:root {
+  /* ── Core Brand Colors ── */
+  --navy:          #1E3A8A;
+  --navy-dark:     #0F1F4A;
+  --navy-mid:      #2A4FA3;
+  --navy-light:    #3B63C4;
+  --gold:          #F59E0B;
+  --gold-light:    #FCD34D;
+  --gold-dim:      rgba(245, 158, 11, 0.12);
+
+  /* ── Semantic Colors ── */
+  --success:       #10B981;
+  --success-dim:   rgba(16, 185, 129, 0.12);
+  --danger:        #EF4444;
+  --danger-dim:    rgba(239, 68, 68, 0.15);
+  --accent:        #3B82F6;
+  --accent-bright: #60A5FA;
+
+  /* ── Surface / Background ── */
+  --surface:       #F8FAFF;
+  --bg:            #EEF2FF;
+  --bg-dark:       #0D1B4B;
+  --card:          #1A2640;
+  --card-light:    #FFFFFF;
+
+  /* ── Text ── */
+  --text:          #0F1C3F;
+  --text-muted:    #6B7DA8;
+  --text-white:    #FFFFFF;
+  --text-dim:      rgba(255, 255, 255, 0.6);
+
+  /* ── Border ── */
+  --border:        rgba(30, 58, 138, 0.12);
+  --border-dark:   rgba(255, 255, 255, 0.08);
+  --border-gold:   rgba(245, 158, 11, 0.3);
+
+  /* ── Typography ── */
+  --font-display:  'Bebas Neue', sans-serif;
+  --font-body:     'Noto Sans KR', sans-serif;
+
+  /* ── Spacing ── */
+  --space-xs:      4px;
+  --space-sm:      8px;
+  --space-md:      16px;
+  --space-lg:      24px;
+  --space-xl:      32px;
+  --space-2xl:     48px;
+
+  /* ── Border Radius ── */
+  --radius-sm:     8px;
+  --radius-md:     12px;
+  --radius-lg:     16px;
+  --radius-xl:     20px;
+  --radius-pill:   9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm:     0 2px 8px rgba(30, 58, 138, 0.08);
+  --shadow-md:     0 8px 24px rgba(30, 58, 138, 0.12);
+  --shadow-lg:     0 16px 48px rgba(10, 20, 60, 0.2);
+
+  /* ── Animation ── */
+  --transition:    0.15s ease;
+  --transition-slow: 0.3s ease;
+
+  /* ── Z-index ── */
+  --z-base:        1;
+  --z-nav:         10;
+  --z-modal:       40;
+  --z-pill:        50;
+
+  /* ── Phone Frame ── */
+  --phone-width:   308px;
+  --phone-height:  612px;
+  --phone-radius:  38px;
+}
+
+/* ── Dark Screen Override (러닝 화면용) ── */
+.dark-screen {
+  --surface:       #0D1B4B;
+  --card:          #111827;
+  --text:          #FFFFFF;
+  --text-muted:    rgba(255, 255, 255, 0.4);
+  --border:        rgba(255, 255, 255, 0.06);
+}

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RunWith — 인터랙티브 프로토타입 v4.1</title>
+<link rel="icon" href="public/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/styles/variables.css">
+<link rel="stylesheet" href="src/styles/base.css">
+<link rel="stylesheet" href="src/styles/components.css">
+<link rel="stylesheet" href="src/styles/screens.css">
+</head>
+<body>
+
+<div style="text-align:center;margin-bottom:22px">
+  <div class="page-title">RunWith</div>
+  <div class="page-sub">그룹 레이스 플랫폼 · 인터랙티브 프로토타입 v4.1 · 코치 기반 러닝 경험</div>
+</div>
+
+<div class="layout">
+
+<!-- ══════ PHONE ══════ -->
+<div class="phone">
+<div class="pscreen">
+<div class="pill"></div>
+
+<!-- ─────────────────────────────
+     S-SPLASH: 로딩 스플래시
+───────────────────────────── -->
+<div class="screen active" id="s-splash">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--navy);position:relative;gap:0">
+    <div style="font-family:var(--font-display);font-size:52px;color:#fff;letter-spacing:4px;line-height:1">RunWith</div>
+    <div style="width:120px;height:3px;background:var(--gold);border-radius:2px;margin:10px 0 32px"></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <div class="splash-dot"></div>
+      <div class="splash-dot" style="animation-delay:.16s"></div>
+      <div class="splash-dot" style="animation-delay:.32s"></div>
+    </div>
+    <div style="position:absolute;bottom:40px;font-size:12px;color:rgba(255,255,255,.4);font-style:italic;letter-spacing:.05em">Run Together, Win Together</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-LOGIN: 로그인
+───────────────────────────── -->
+<div class="screen" id="s-login">
+  <div class="auth-top">
+    <div class="auth-logo">RunWith</div>
+    <div class="auth-wave"></div>
+    <div class="auth-sub">Run Together, Win Together</div>
+  </div>
+  <div class="auth-body">
+    <div><div class="inp-label">이메일</div><input class="inp" type="email" placeholder="이메일을 입력하세요"></div>
+    <div><div class="inp-label">비밀번호</div><input class="inp" type="password" placeholder="비밀번호를 입력하세요"></div>
+    <button class="btn btn-navy" onclick="go('s-home')">로그인</button>
+    <div class="auth-divider">또는</div>
+    <button class="auth-link" onclick="go('s-signup')">아직 계정이 없으신가요? <strong>회원가입</strong></button>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-SIGNUP: 회원가입
+───────────────────────────── -->
+<div class="screen" id="s-signup">
+  <div class="auth-top">
+    <div class="auth-logo">RunWith</div>
+    <div class="auth-wave"></div>
+    <div class="auth-sub">새 계정 만들기</div>
+  </div>
+  <div class="auth-body">
+    <div><div class="inp-label">이름</div><input class="inp" type="text" placeholder="이름을 입력하세요"></div>
+    <div><div class="inp-label">이메일</div><input class="inp" type="email" placeholder="이메일을 입력하세요"></div>
+    <div><div class="inp-label">비밀번호</div><input class="inp" type="password" placeholder="비밀번호 (8자 이상)"></div>
+    <div><div class="inp-label">비밀번호 확인</div><input class="inp" type="password" placeholder="비밀번호를 다시 입력하세요"></div>
+    <button class="btn btn-navy" onclick="go('s-home')">회원가입</button>
+    <button class="auth-link" onclick="go('s-login')">이미 계정이 있으신가요? <strong>로그인</strong></button>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-HOME: 홈 (v4.1 코치 카드)
+───────────────────────────── -->
+<div class="screen" id="s-home">
+  <div class="scroll">
+
+    <!-- Hero -->
+    <div class="home-hero">
+      <div class="hgreet">안녕하세요 👋</div>
+      <div class="hname">이지수님</div>
+      <div class="hlevel">⚡ 초보 Lv.2</div>
+      <div class="today-card">
+        <div class="tc-l">
+          <div class="tc-lbl">오늘의 목표</div>
+          <div class="tc-val">5km 그룹 레이스</div>
+          <div class="tc-sub">입문 레벨 · 약 124명 참가 예정</div>
+        </div>
+        <button class="tc-btn" onclick="go('s-warmup')">시작 →</button>
+      </div>
+    </div>
+
+    <!-- v4.1 NEW: 오늘의 코치 가이드 카드 -->
+    <div class="hsec" style="margin-top:14px">
+      <div class="coach-guide-card">
+        <div class="cgc-label">오늘의 코치 가이드</div>
+        <div class="cgc-text" id="coach-guide-text">초반 3km는 페이스보다 리듬 유지에 집중하세요</div>
+        <div class="cgc-sub">이번 러닝 핵심 목표</div>
+      </div>
+    </div>
+
+    <!-- v4.1 NEW: 지난 러닝 코칭 요약 -->
+    <div class="hsec" style="margin-top:10px">
+      <div style="background:#F0FDF4;border:1px solid rgba(16,185,129,.2);border-left:3px solid var(--success);border-radius:var(--radius-md);padding:10px 14px">
+        <div style="font-size:9px;font-weight:700;color:var(--success);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">지난 러닝 코칭 요약</div>
+        <div style="font-size:12px;font-weight:600;color:var(--text)" id="last-summary-text">후반 페이스 유지력이 좋아졌어요</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:3px" id="last-summary-metric">목표 일치율 92%</div>
+      </div>
+    </div>
+
+    <!-- 이번 주 스트릭 -->
+    <div class="hsec" style="margin-top:12px">
+      <div class="hsec-t">이번 주 스트릭</div>
+      <div class="streak-row">
+        <div class="streak-info"><div class="sv">3일 연속 🔥</div><div class="sl">주간 목표 3/5일</div></div>
+        <div class="sdots">
+          <div class="sd done">✓</div><div class="sd done">✓</div><div class="sd done">✓</div>
+          <div class="sd today" style="font-size:8px">오늘</div><div class="sd future">·</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 최근 기록 (우선순위 하향, 코치 카드 아래) -->
+    <div class="hsec" style="margin-top:12px">
+      <div class="hsec-t">최근 기록</div>
+      <div class="s3col">
+        <div class="mstat"><div class="mv">28.4</div><div class="ml">이달 km</div></div>
+        <div class="mstat"><div class="mv">6'38"</div><div class="ml">평균 페이스</div></div>
+        <div class="mstat"><div class="mv">9</div><div class="ml">총 러닝</div></div>
+      </div>
+    </div>
+
+    <!-- 내 그룹 순위 -->
+    <div class="hsec" style="margin-top:12px">
+      <div class="hsec-t">내 그룹 순위</div>
+      <div class="rank-card">
+        <div class="rc-l"><div class="rct">입문 5km 그룹 내</div><div class="rcv">12위</div><div class="rcs">지난 기록 대비 ↑ 7계단</div></div>
+        <div class="rc-badge">TOP 10%</div>
+      </div>
+    </div>
+
+    <!-- 6주 플랜 달성률 -->
+    <div class="hsec" style="margin-top:12px">
+      <div class="hsec-t">6주 플랜 달성률</div>
+      <div class="gbwrap"><div class="gb-top"><span class="gb-l">4주차 진행 중</span><span class="gb-p">62%</span></div><div class="gb-track"><div class="gb-fill"></div></div></div>
+    </div>
+
+    <div class="hfoot">
+      <button class="btn btn-navy" onclick="go('s-warmup')">레이스 시작하기</button>
+    </div>
+  </div>
+  <div class="bnav">
+    <button class="bni on" onclick="go('s-home')"><svg viewBox="0 0 22 22" fill="none"><path d="M3 10.5L11 3l8 7.5V19a1 1 0 01-1 1H4a1 1 0 01-1-1V10.5z" stroke="#1E3A8A" stroke-width="1.6"/><path d="M8 20v-7h6v7" stroke="#1E3A8A" stroke-width="1.6"/></svg><span>홈</span></button>
+    <button class="bni" onclick="go('s-ranking')"><svg viewBox="0 0 22 22" fill="none"><polyline points="4,18 4,12" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/><polyline points="11,18 11,8" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/><polyline points="18,18 18,4" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/></svg><span>순위</span></button>
+    <button class="bni" onclick="go('s-calendar')"><svg viewBox="0 0 22 22" fill="none"><rect x="2" y="4" width="18" height="16" rx="2.5" stroke="#9CA3AF" stroke-width="1.6"/><path d="M2 9h18M7 2v4M15 2v4" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/></svg><span>달력</span></button>
+    <button class="bni" onclick="go('s-mypage')"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="4" stroke="#9CA3AF" stroke-width="1.6"/><path d="M3 19c0-3.866 3.582-7 8-7s8 3.134 8 7" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/></svg><span>마이페이지</span></button>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-WARMUP: 워밍업 (v4.1 체크리스트)
+───────────────────────────── -->
+<div class="screen" id="s-warmup">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,#0D1B4B,#1E3A8A);gap:20px;padding:30px 24px">
+    <div class="wm-title">워밍업 & 그룹 매칭</div>
+    <div class="ring-wrap">
+      <svg width="150" height="150" viewBox="0 0 150 150">
+        <circle cx="75" cy="75" r="62" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="8"/>
+        <circle id="wring" cx="75" cy="75" r="62" fill="none" stroke="#F59E0B" stroke-width="8" stroke-dasharray="389" stroke-dashoffset="97" stroke-linecap="round"/>
+      </svg>
+      <div class="ring-inner"><div class="ring-t" id="wtime">0:45</div><div class="ring-l">준비 중</div></div>
+    </div>
+    <div class="match-card" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:14px 18px;width:100%">
+      <div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px"><span class="pulse" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-right:5px;animation:pulse 1.2s ease-in-out infinite"></span>매칭 중</div>
+      <!-- v4.1: 변경된 매칭 메시지 -->
+      <div style="font-size:13px;font-weight:700;color:#fff">입문 레벨 5km 그룹</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:2px">비슷한 레벨 러너 <strong style="color:#F59E0B">124명</strong> 매칭 완료</div>
+    </div>
+
+    <!-- v4.1 NEW: 준비 상태 체크 리스트 -->
+    <div class="check-list" style="width:100%">
+      <div class="check-item done" id="check-gps">
+        <div class="check-dot">✓</div>
+        <span>GPS 연결 확인 중</span>
+      </div>
+      <div class="check-item" id="check-group">
+        <div class="check-dot"></div>
+        <span>그룹 매칭 진행 중</span>
+      </div>
+      <div class="check-item" id="check-coach">
+        <div class="check-dot"></div>
+        <span>오늘 코치 데이터 로딩 중</span>
+      </div>
+    </div>
+
+    <div class="wm-sub">GPS 수신 중... 비슷한 레벨의 러너들과<br>실시간으로 연결됩니다</div>
+    <button class="btn-ghost-dark" onclick="go('s-running')">바로 시작</button>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-RUNNING: 러닝 진행 (v4.1)
+───────────────────────────── -->
+<div class="screen" id="s-running">
+  <!-- v4.1: 탭 명칭 변경 -->
+  <div class="run-tabs">
+    <button class="run-tab active" id="tab-data" onclick="switchRunTab('data')">실시간 데이터</button>
+    <button class="run-tab" id="tab-pacer" onclick="switchRunTab('pacer')">코치 리듬 비교</button>
+  </div>
+
+  <!-- 실시간 데이터 뷰 -->
+  <div id="run-data-view" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+    <!-- v4.1: 코칭 배너 2줄 구조 (현재 상태 + 행동 제안) -->
+    <div class="coaching">
+      <span style="font-size:12px;flex-shrink:0">⚡</span>
+      <div>
+        <div class="coaching-state" id="coaching-state" style="font-size:10px;color:rgba(255,255,255,.75);line-height:1.3">지금 리듬이 약간 느려요</div>
+        <div class="coaching-action" id="coaching-action" style="font-size:12px;font-weight:700;color:#fff;line-height:1.3">케이던스를 조금만 올려보세요</div>
+      </div>
+    </div>
+    <div class="data4">
+      <div class="dc"><div class="dc-l">Pace</div><div class="dc-v" id="run-pace">6'42"</div><div class="dc-u">/ km</div></div>
+      <div class="dc"><div class="dc-l">Cadence</div><div class="dc-v" id="run-cad">162</div><div class="dc-u">spm</div></div>
+      <div class="dc"><div class="dc-l">거리</div><div class="dc-v" id="run-dist">2.3</div><div class="dc-u">km</div></div>
+      <div class="dc"><div class="dc-l">시간</div><div class="dc-v" id="run-time">14:52</div><div class="dc-u"></div></div>
+    </div>
+    <!-- v4.1: 순위 텍스트 변경 "현재 그룹 위치" -->
+    <div class="rank-bar">
+      <div class="rb-rank" style="opacity:.7;font-size:11px">현재 그룹 위치 12위</div>
+      <div class="rb-bw"><div class="rb-b" id="rank-bar"></div></div>
+      <div class="rb-tot">/ 124명</div>
+    </div>
+    <div class="run-btns">
+      <button class="rbtn rbtn-p" onclick="go('s-paused')">⏸ 일시정지</button>
+      <button class="rbtn rbtn-s" onclick="go('s-end')">■ 종료</button>
+    </div>
+  </div>
+
+  <!-- 코치 리듬 비교 뷰 (v4.1: 전면 텍스트 수정) -->
+  <div id="run-pacer-view" style="display:none;flex:1;overflow:hidden;flex-direction:column;background:#0D1B4B">
+    <div style="padding:14px 16px 0;flex-shrink:0;text-align:center">
+      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.8);margin-bottom:10px">코치 리듬 비교</div>
+      <div class="track" style="background:rgba(255,255,255,.06);border-radius:12px;padding:14px 16px;margin:0;position:relative">
+        <div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;text-align:center">구간 리듬 트랙</div>
+        <div style="height:28px;position:relative">
+          <div style="position:absolute;inset:0;background:rgba(255,255,255,.04);border-radius:10px"></div>
+          <div class="track-icon track-guide" id="track-guide" style="left:55%">가</div>
+          <div class="track-icon track-me ahead" id="track-me" style="left:48%">나</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px">
+          <span style="font-size:9px;color:rgba(255,255,255,.35)">0km</span>
+          <span style="font-size:9px;color:rgba(255,255,255,.35)">2.5km</span>
+          <span style="font-size:9px;color:rgba(255,255,255,.35)">5km</span>
+        </div>
+      </div>
+    </div>
+    <!-- v4.1: gap 레이블 "리듬 차이" -->
+    <div style="margin:12px 16px;text-align:center">
+      <div class="gap-num behind" id="gap-num">-00:12</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px;letter-spacing:.06em;text-transform:uppercase">리듬 차이</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:4px" id="gap-lbl">현재 구간 목표 리듬보다 느림</div>
+    </div>
+    <!-- v4.1: 코칭 메시지 2줄 구조 -->
+    <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:12px 16px;margin:0 16px">
+      <div style="font-size:11px;color:rgba(255,255,255,.65);line-height:1.55;text-align:center" id="pacer-state">현재 구간 목표보다 약간 느립니다</div>
+      <div style="font-size:12px;font-weight:700;color:#fff;line-height:1.55;text-align:center;margin-top:3px" id="pacer-action">지금은 속도보다 리듬 유지가 중요해요</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.04);flex:1">
+      <div class="dc"><div class="dc-l">내 Pace</div><div class="dc-v" id="pc-pace">6'42"</div><div class="dc-u">/ km</div></div>
+      <div class="dc"><div class="dc-l">목표 리듬</div><div class="dc-v">5'30"</div><div class="dc-u">가이드</div></div>
+    </div>
+    <div class="run-btns" style="background:#0D1B4B">
+      <button class="rbtn rbtn-p" onclick="go('s-paused')">⏸ 일시정지</button>
+      <button class="rbtn rbtn-s" onclick="go('s-end')">■ 종료</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-PAUSED: 일시정지
+───────────────────────────── -->
+<div class="screen" id="s-paused">
+  <div class="pause-circle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="6" y="5" width="5" height="18" rx="2" fill="rgba(255,255,255,.5)"/><rect x="17" y="5" width="5" height="18" rx="2" fill="rgba(255,255,255,.5)"/></svg></div>
+  <div style="font-size:13px;color:rgba(255,255,255,.5)">일시 정지됨</div>
+  <div class="pbbtns">
+    <button class="pbb pbb-r" onclick="go('s-running')">▶ 재개하기</button>
+    <button class="pbb pbb-s" onclick="go('s-end')">■ 종료</button>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-END: 레이스 완주
+───────────────────────────── -->
+<div class="screen" id="s-end">
+  <div class="end-emoji">🎉</div>
+  <h2>레이스 완주!</h2>
+  <p>그룹 내 최종 순위를 집계 중입니다<br>잠시만 기다려주세요...</p>
+  <button class="btn btn-navy" style="width:220px;margin-top:8px" onclick="go('s-share')">결과 확인하기</button>
+</div>
+
+<!-- ─────────────────────────────
+     S-SHARE: 결과 공유 (v4.1)
+───────────────────────────── -->
+<div class="screen" id="s-share">
+  <div class="scroll">
+    <div class="share-hdr"><h2>레이스 완주 🏁</h2><p>결과를 저장하거나 공유하세요</p></div>
+    <div class="share-card">
+      <div class="sc-brand">RUNWITH</div>
+      <div class="sc-rank"><span>#</span>8<span style="font-size:16px;color:rgba(255,255,255,.5)">위</span></div>
+      <!-- v4.1 NEW: +7계단 상승 표시 -->
+      <div style="display:flex;align-items:center;gap:8px;margin-top:4px;margin-bottom:2px">
+        <div style="font-size:11px;font-weight:700;color:var(--gold)">↑ +7계단 상승</div>
+      </div>
+      <div class="sc-group">입문 5km 그룹 · 124명 중</div>
+      <div class="sc-div"></div>
+      <div class="sc-stats">
+        <div class="sc-stat"><div class="ssv">5.2km</div><div class="ssl">거리</div></div>
+        <div class="sc-stat"><div class="ssv">28'50"</div><div class="ssl">시간</div></div>
+        <div class="sc-stat"><div class="ssv">5'33"</div><div class="ssl">페이스</div></div>
+      </div>
+      <!-- v4.1 NEW: 코치 한줄 피드백 -->
+      <div style="border-top:1px solid rgba(255,255,255,.1);margin-top:12px;padding-top:10px">
+        <div style="font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">오늘 코치 피드백</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.85);font-weight:500">후반 페이스 유지력이 좋았습니다</div>
+      </div>
+      <div class="sc-wm">runwith.app</div>
+    </div>
+    <div class="share-btns">
+      <div class="srow">
+        <button class="sbtn sbtn-save">💾 저장</button>
+        <button class="sbtn sbtn-ig">📸 인스타</button>
+        <button class="sbtn sbtn-kk">💬 카카오</button>
+      </div>
+      <button class="sbtn sbtn-rank" onclick="go('s-ranking')">나의 순위 변화 확인하기 →</button>
+      <button class="sbtn" style="background:#F0FDF4;color:#065F46;width:100%" onclick="go('s-analysis')">가이드 대비 분석 보기 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-RANKING: 순위 & 보상
+───────────────────────────── -->
+<div class="screen" id="s-ranking">
+  <div class="rank-hdr"><h2>순위 & 보상</h2><p>입문 5km 그룹 · 2026년 3월</p>
+    <div class="rbadge-row"><div class="rbadge-up">↑ 7계단 상승!</div><div class="rbadge-pt">+150 포인트</div></div>
+  </div>
+  <div class="scroll">
+    <div class="my-rank-card">
+      <div class="mrc-top"><div class="mrc-lbl">내 순위</div><div class="mrc-rank">#<span>8</span>위</div></div>
+      <div class="mrc-stats">
+        <div class="mrc-s"><div class="msv">5.2km</div><div class="msl">거리</div></div>
+        <div class="mrc-s"><div class="msv">28'50"</div><div class="msl">시간</div></div>
+        <div class="mrc-s"><div class="msv">5'33"</div><div class="msl">페이스</div></div>
+      </div>
+    </div>
+    <div class="lb">
+      <div class="lb-t">그룹 리더보드 (TOP 10)</div>
+      <div class="lb-row"><div class="lb-pos t1">1</div><div class="lb-av">김</div><div class="lb-info"><div class="lin">김민준</div><div class="lis">5.2km · 25'12"</div></div><div class="lb-pace">4'50"</div></div>
+      <div class="lb-row"><div class="lb-pos t2">2</div><div class="lb-av">박</div><div class="lb-info"><div class="lin">박서연</div><div class="lis">5.2km · 25'48"</div></div><div class="lb-pace">4'58"</div></div>
+      <div class="lb-row"><div class="lb-pos t3">3</div><div class="lb-av">이</div><div class="lb-info"><div class="lin">이도윤</div><div class="lis">5.1km · 26'10"</div></div><div class="lb-pace">5'08"</div></div>
+      <div class="lb-sep">· · ·</div>
+      <div class="lb-row me"><div class="lb-pos" style="color:var(--navy);font-weight:700">8</div><div class="lb-av" style="background:#EEF2FF">지수</div><div class="lb-info"><div class="lin" style="color:var(--navy)">이지수 (나)</div><div class="lis">5.2km · 28'50"</div></div><div class="lb-pace">5'33"</div></div>
+      <div class="lb-row"><div class="lb-pos">9</div><div class="lb-av">최</div><div class="lb-info"><div class="lin">최서준</div><div class="lis">5.0km · 29'05"</div></div><div class="lb-pace">5'49"</div></div>
+    </div>
+    <div class="badge-sec">
+      <div class="badge-t">이번 레이스 보상</div>
+      <div class="badge-row">
+        <div class="bi"><div class="bi-ic">🏅</div><div class="bi-n">TOP 10%</div><div class="bi-new">NEW</div></div>
+        <div class="bi"><div class="bi-ic">🔥</div><div class="bi-n">3일 연속</div><div class="bi-new">NEW</div></div>
+        <div class="bi"><div class="bi-ic">⚡</div><div class="bi-n">리듬 안정</div><div class="bi-new">NEW</div></div>
+      </div>
+    </div>
+    <div style="padding:0 16px 20px"><button class="btn btn-navy" onclick="go('s-home')">홈으로 돌아가기</button></div>
+  </div>
+  <div class="bnav">
+    <button class="bni" onclick="go('s-home')"><svg viewBox="0 0 22 22" fill="none"><path d="M3 10.5L11 3l8 7.5V19a1 1 0 01-1 1H4a1 1 0 01-1-1V10.5z" stroke="#9CA3AF" stroke-width="1.6"/><path d="M8 20v-7h6v7" stroke="#9CA3AF" stroke-width="1.6"/></svg><span>홈</span></button>
+    <button class="bni on" onclick="go('s-ranking')"><svg viewBox="0 0 22 22" fill="none"><polyline points="4,18 4,12" stroke="#1E3A8A" stroke-width="1.6" stroke-linecap="round"/><polyline points="11,18 11,8" stroke="#1E3A8A" stroke-width="1.6" stroke-linecap="round"/><polyline points="18,18 18,4" stroke="#1E3A8A" stroke-width="1.6" stroke-linecap="round"/></svg><span>순위</span></button>
+    <button class="bni" onclick="go('s-calendar')"><svg viewBox="0 0 22 22" fill="none"><rect x="2" y="4" width="18" height="16" rx="2.5" stroke="#9CA3AF" stroke-width="1.6"/><path d="M2 9h18M7 2v4M15 2v4" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/></svg><span>달력</span></button>
+    <button class="bni" onclick="go('s-mypage')"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="4" stroke="#9CA3AF" stroke-width="1.6"/><path d="M3 19c0-3.866 3.582-7 8-7s8 3.134 8 7" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/></svg><span>마이페이지</span></button>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-ANALYSIS: 결과 분석 (v4.1 코치 해석 카드)
+───────────────────────────── -->
+<div class="screen" id="s-analysis">
+  <div class="analysis-hdr"><h2>가이드 대비 분석</h2><p>이번 레이스 페이스 오버레이 그래프</p></div>
+  <div class="scroll">
+    <div class="graph-wrap">
+      <div class="graph-title">페이스 오버레이 그래프</div>
+      <div class="graph-canvas">
+        <div class="g-axis-y"><span>5'00"</span><span>5'30"</span><span>6'00"</span><span>6'30"</span></div>
+        <div class="g-chart">
+          <svg width="100%" height="100%" viewBox="0 0 220 90" preserveAspectRatio="none">
+            <line x1="0" y1="22" x2="220" y2="22" stroke="#F1F5F9" stroke-width="1"/>
+            <line x1="0" y1="45" x2="220" y2="45" stroke="#F1F5F9" stroke-width="1"/>
+            <line x1="0" y1="67" x2="220" y2="67" stroke="#F1F5F9" stroke-width="1"/>
+            <polygon points="0,45 44,40 88,38 132,42 176,35 220,40 220,45 220,45 0,45" fill="#FEF3C7" opacity="0.5"/>
+            <polyline points="0,45 44,45 88,45 132,45 176,45 220,45" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="4,3"/>
+            <polyline points="0,55 44,62 88,50 132,48 176,42 220,38" fill="none" stroke="#1E3A8A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="g-axis-x"><span>0km</span><span>1km</span><span>2km</span><span>3km</span><span>4km</span><span>5km</span></div>
+      <div class="g-legend">
+        <div class="g-leg-item"><div class="g-leg-line" style="background:#94A3B8;border-top:2px dashed #94A3B8;height:0"></div>가이드</div>
+        <div class="g-leg-item"><div class="g-leg-line" style="background:#1E3A8A"></div>내 리듬</div>
+        <div class="g-leg-item"><div class="g-leg-line" style="background:#FCD34D"></div>성취 구간</div>
+      </div>
+    </div>
+
+    <!-- v4.1 NEW: 코치 분석 해석 카드 -->
+    <div style="margin:12px 16px 0;background:#EEF2FF;border:1px solid rgba(30,58,138,.15);border-left:3px solid var(--navy);border-radius:var(--radius-md);padding:14px 16px">
+      <div style="font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">코치 분석</div>
+      <div style="font-size:12px;color:var(--text);line-height:1.7;white-space:pre-line">초반 1km는 목표보다 느렸지만
+3km 이후 안정적으로 리듬을 회복했습니다
+
+후반 가속으로 그룹 순위가 상승했습니다</div>
+    </div>
+
+    <!-- v4.1 NEW: 다음 액션 제안 -->
+    <div style="margin:10px 16px 0;background:#FFFBEB;border:1px solid rgba(245,158,11,.2);border-left:3px solid var(--gold);border-radius:var(--radius-md);padding:12px 16px">
+      <div style="font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">다음 러닝 목표</div>
+      <div style="font-size:12px;color:var(--text);line-height:1.65;white-space:pre-line">다음 러닝에서는
+초반 리듬 유지에 조금 더 집중해보세요</div>
+    </div>
+
+    <div class="compare-table">
+      <div class="ct-header">
+        <span>항목</span><span>가이드</span><span>나의 기록</span><span>차이</span>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell label">평균 페이스</div><div class="ct-cell">5'30"</div><div class="ct-cell">5'25"</div><div class="ct-cell good">-5" ↑</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell label">케이던스</div><div class="ct-cell">180</div><div class="ct-cell">175</div><div class="ct-cell" style="color:var(--text-muted)">-5</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell label">목표 일치율</div><div class="ct-cell">100%</div><div class="ct-cell">92%</div><div class="ct-cell great">Good!</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell label">완주 거리</div><div class="ct-cell">5.0km</div><div class="ct-cell">5.2km</div><div class="ct-cell good">+0.2 ↑</div>
+      </div>
+    </div>
+    <div style="padding:12px 16px 20px;display:flex;flex-direction:column;gap:8px">
+      <button class="btn btn-navy" onclick="go('s-ranking')">순위 보기</button>
+      <button class="btn btn-ghost" onclick="go('s-home')">홈으로</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-CALENDAR: 달력 (v4.1 코치 피드백)
+───────────────────────────── -->
+<div class="screen" id="s-calendar">
+  <div class="cal-top"><h2>달력</h2><div class="cal-nav"><button onclick="RunWithCalendar.changeMonth(-1)">‹</button><span id="cal-label">2026.03</span><button onclick="RunWithCalendar.changeMonth(1)">›</button></div></div>
+  <div class="dow"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+  <div class="cal-grid" id="cal-grid"></div>
+  <div class="cal-leg">
+    <div class="cl-i"><div class="cl-d" style="background:var(--navy)"></div>완료</div>
+    <div class="cl-i"><div class="cl-d" style="background:#E2E8F0"></div>미달성</div>
+    <div class="cl-i"><div class="cl-d" style="background:var(--success)"></div>예정</div>
+  </div>
+  <div class="cal-sum">
+    <div class="cs-t">3월 요약</div>
+    <div class="cs-r"><span>완료 러닝</span><span>9회</span></div>
+    <div class="cs-r"><span>총 거리</span><span>28.4 km</span></div>
+    <div class="cs-r"><span>그룹 최고 순위</span><span>#8위</span></div>
+  </div>
+
+  <!-- 날짜 상세 바텀시트 -->
+  <div class="modal-bg" id="dmod-bg" onclick="RunWithCalendar.closeDay(event)">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <h3 id="dm-date">3월 15일</h3>
+      <div class="dm-tag dm-past" id="dm-tag">과거 기록</div>
+      <div class="dm-grid" id="dm-grid"></div>
+      <!-- v4.1 NEW: 코치 피드백 -->
+      <div id="dm-coach" style="background:#EEF2FF;border-left:3px solid var(--navy);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:12px">
+        <div style="font-size:9px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">코치 피드백</div>
+        <div style="font-size:12px;color:var(--text)" id="dm-coach-text">리듬 유지가 안정적이었어요</div>
+      </div>
+      <button class="btn-dmc" onclick="RunWithCalendar.closeDay()">닫기</button>
+    </div>
+  </div>
+
+  <div class="bnav">
+    <button class="bni" onclick="go('s-home')"><svg viewBox="0 0 22 22" fill="none"><path d="M3 10.5L11 3l8 7.5V19a1 1 0 01-1 1H4a1 1 0 01-1-1V10.5z" stroke="#9CA3AF" stroke-width="1.6"/><path d="M8 20v-7h6v7" stroke="#9CA3AF" stroke-width="1.6"/></svg><span>홈</span></button>
+    <button class="bni" onclick="go('s-ranking')"><svg viewBox="0 0 22 22" fill="none"><polyline points="4,18 4,12" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/><polyline points="11,18 11,8" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/><polyline points="18,18 18,4" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/></svg><span>순위</span></button>
+    <button class="bni on" onclick="go('s-calendar')"><svg viewBox="0 0 22 22" fill="none"><rect x="2" y="4" width="18" height="16" rx="2.5" stroke="#1E3A8A" stroke-width="1.6"/><path d="M2 9h18M7 2v4M15 2v4" stroke="#1E3A8A" stroke-width="1.6" stroke-linecap="round"/></svg><span>달력</span></button>
+    <button class="bni" onclick="go('s-mypage')"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="4" stroke="#9CA3AF" stroke-width="1.6"/><path d="M3 19c0-3.866 3.582-7 8-7s8 3.134 8 7" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/></svg><span>마이페이지</span></button>
+  </div>
+</div>
+
+<!-- ─────────────────────────────
+     S-MYPAGE: 마이페이지
+───────────────────────────── -->
+<div class="screen" id="s-mypage">
+  <div class="my-hero">
+    <div class="mp-profile">
+      <div class="mp-av">지수</div>
+      <div class="mp-info"><h2>이지수</h2><p>가입 2025년 11월 · 6주 플랜 진행 중</p><div class="mp-lvl">⚡ 초보 Lv.2</div></div>
+    </div>
+    <div class="accum">
+      <div class="ac"><div class="acv">142</div><div class="acl">총 km</div></div>
+      <div class="ac"><div class="acv">24h</div><div class="acl">총 시간</div></div>
+      <div class="ac"><div class="acv">#8위</div><div class="acl">최고 순위</div></div>
+    </div>
+  </div>
+  <div class="scroll">
+    <div class="mpsec" style="margin-top:14px"><div class="gbwrap"><div class="gb-top"><span class="gb-l">6주 목표 달성률</span><span class="gb-p">62%</span></div><div class="gb-track"><div class="gb-fill"></div></div></div></div>
+    <div class="mpsec" style="margin-top:12px">
+      <div class="mpsec-t">내 기록</div>
+      <div class="mp-row" onclick="go('s-ranking')"><div class="mp-rl"><div class="mp-ric" style="background:#EEF2FF">📊</div><div class="mp-rlb">순위 & 랭킹</div></div><span class="mp-chev">›</span></div>
+      <div class="mp-row" onclick="go('s-calendar')"><div class="mp-rl"><div class="mp-ric" style="background:#F0FDF4">🗓️</div><div class="mp-rlb">달력 & 기록</div></div><span class="mp-chev">›</span></div>
+    </div>
+    <div class="mpsec" style="margin-top:12px">
+      <div class="mpsec-t">설정</div>
+      <div class="mp-row"><div class="mp-rl"><div class="mp-ric" style="background:#EEF2FF">👤</div><div class="mp-rlb">프로필 수정</div></div><span class="mp-chev">›</span></div>
+      <div class="mp-row"><div class="mp-rl"><div class="mp-ric" style="background:#FFFBEB">🎯</div><div class="mp-rlb">목표 재설정</div></div><span class="mp-chev">›</span></div>
+      <div class="mp-row"><div class="mp-rl"><div class="mp-ric" style="background:#F0FDF4">🎵</div><div class="mp-rlb">코칭 음성 설정</div></div><span class="mp-chev">›</span></div>
+      <div class="mp-row" style="margin-bottom:20px"><div class="mp-rl"><div class="mp-ric" style="background:#FFF1F2">🚪</div><div class="mp-rlb">로그아웃</div></div><span class="mp-chev">›</span></div>
+    </div>
+  </div>
+  <div class="bnav">
+    <button class="bni" onclick="go('s-home')"><svg viewBox="0 0 22 22" fill="none"><path d="M3 10.5L11 3l8 7.5V19a1 1 0 01-1 1H4a1 1 0 01-1-1V10.5z" stroke="#9CA3AF" stroke-width="1.6"/><path d="M8 20v-7h6v7" stroke="#9CA3AF" stroke-width="1.6"/></svg><span>홈</span></button>
+    <button class="bni" onclick="go('s-ranking')"><svg viewBox="0 0 22 22" fill="none"><polyline points="4,18 4,12" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/><polyline points="11,18 11,8" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/><polyline points="18,18 18,4" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/></svg><span>순위</span></button>
+    <button class="bni" onclick="go('s-calendar')"><svg viewBox="0 0 22 22" fill="none"><rect x="2" y="4" width="18" height="16" rx="2.5" stroke="#9CA3AF" stroke-width="1.6"/><path d="M2 9h18M7 2v4M15 2v4" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round"/></svg><span>달력</span></button>
+    <button class="bni on" onclick="go('s-mypage')"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="4" stroke="#1E3A8A" stroke-width="1.6"/><path d="M3 19c0-3.866 3.582-7 8-7s8 3.134 8 7" stroke="#1E3A8A" stroke-width="1.6" stroke-linecap="round"/></svg><span>마이페이지</span></button>
+  </div>
+</div>
+
+</div><!-- pscreen -->
+</div><!-- phone -->
+
+<!-- ══════ SIDEBAR ══════ -->
+<div class="sidebar">
+  <div class="sb-sec">
+    <div class="sb-lbl">인증</div>
+    <button class="sbb active" id="nav-s-splash" onclick="go('s-splash')"><span class="sb-dot" style="background:#1E3A8A"></span>로딩 스플래시</button>
+    <button class="sbb" id="nav-s-login" onclick="go('s-login')"><span class="sb-dot" style="background:#3B82F6"></span>로그인</button>
+    <button class="sbb" id="nav-s-signup" onclick="go('s-signup')"><span class="sb-dot" style="background:#3B82F6"></span>회원가입</button>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">메인 탭</div>
+    <button class="sbb" id="nav-s-home" onclick="go('s-home')"><span class="sb-dot" style="background:#1E3A8A"></span>🏠 홈 <span class="sb-new">v4.1</span></button>
+    <button class="sbb" id="nav-s-ranking" onclick="go('s-ranking')"><span class="sb-dot" style="background:#F59E0B"></span>📊 순위 & 보상</button>
+    <button class="sbb" id="nav-s-calendar" onclick="go('s-calendar')"><span class="sb-dot" style="background:#10B981"></span>🗓️ 달력</button>
+    <button class="sbb" id="nav-s-mypage" onclick="go('s-mypage')"><span class="sb-dot" style="background:#6B7DA8"></span>👤 마이페이지</button>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">레이스 플로우</div>
+    <button class="sbb" id="nav-s-warmup" onclick="go('s-warmup')"><span class="sb-dot" style="background:#F59E0B"></span>워밍업 & 매칭 <span class="sb-new">v4.1</span></button>
+    <button class="sbb" id="nav-s-running" onclick="go('s-running')"><span class="sb-dot" style="background:#EF4444"></span>러닝 진행 <span class="sb-new">v4.1</span></button>
+    <button class="sbb" onclick="go('s-running');setTimeout(()=>switchRunTab('pacer'),50)"><span class="sb-dot" style="background:#F59E0B"></span>코치 리듬 비교 <span class="sb-new">v4.1</span></button>
+    <button class="sbb" id="nav-s-paused" onclick="go('s-paused')"><span class="sb-dot" style="background:#6B7280"></span>일시정지</button>
+    <button class="sbb" id="nav-s-end" onclick="go('s-end')"><span class="sb-dot" style="background:#8B5CF6"></span>레이스 완주</button>
+    <button class="sbb" id="nav-s-share" onclick="go('s-share')"><span class="sb-dot" style="background:#3B82F6"></span>결과 공유 <span class="sb-new">v4.1</span></button>
+    <button class="sbb" id="nav-s-analysis" onclick="go('s-analysis')"><span class="sb-dot" style="background:#10B981"></span>결과 분석 <span class="sb-new">v4.1</span></button>
+  </div>
+
+  <div class="flow-card">
+    <div class="fc-title">v4.1 변경 요약</div>
+    <div class="fc-step"><div class="fc-num">홈</div><div class="fc-txt">코치 가이드 카드 + 지난 러닝 요약 추가</div></div>
+    <div class="fc-step"><div class="fc-num">준비</div><div class="fc-txt">체크리스트 + 매칭 메시지 개선</div></div>
+    <div class="fc-step"><div class="fc-num">달리</div><div class="fc-txt">탭명·코칭 2줄 구조·순위 강조도 조정</div></div>
+    <div class="fc-step"><div class="fc-num">페이</div><div class="fc-txt">텍스트 전면 수정 → "리듬" 중심</div></div>
+    <div class="fc-step"><div class="fc-num">공유</div><div class="fc-txt">코치 피드백 + 순위 상승 카드 추가</div></div>
+    <div class="fc-step"><div class="fc-num">분석</div><div class="fc-txt">코치 해석 카드 + 다음 액션 제안</div></div>
+    <div class="fc-step"><div class="fc-num">달력</div><div class="fc-txt">날짜 상세에 코치 피드백 표시</div></div>
+  </div>
+</div>
+
+</div><!-- layout -->
+
+<!-- ══════ SCRIPTS ══════ -->
+<script src="src/js/router.js"></script>
+<script src="src/js/coaching.js"></script>
+<script src="src/js/timer.js"></script>
+<script src="src/js/pacer.js"></script>
+<script src="src/js/calendar.js"></script>
+<script>
+  /* ── 앱 초기화 ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    // 달력 초기화
+    RunWithCalendar.init();
+
+    // 타이머를 라우터에 연결
+    RunWithTimer.bindToRouter();
+
+    // 러닝 화면 → 페이서 동기화
+    RunWithRouter.on((screen) => {
+      if (screen === 's-running') {
+        RunWithPacer.start();
+      } else {
+        RunWithPacer.stop();
+      }
+    });
+
+    // 초기 화면 진입
+    RunWithRouter.init();
+  });
+</script>
+
+</body>
+</html>
